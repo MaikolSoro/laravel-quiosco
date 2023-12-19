@@ -13,7 +13,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return new ProductCollection(Product::where('available', 1)->orderBy('id', 'DESC')->paginate(10));
+        return new ProductCollection(Product::where('available', 1)->orderBy('id', 'DESC')->get());
+        //return new ProductCollection(Product::where('available', 1)->orderBy('id', 'DESC')->paginate(10));
     }
 
     /**
