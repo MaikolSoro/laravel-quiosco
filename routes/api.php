@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -23,6 +24,9 @@ Route::middleware('auth:sanctum')->group(function(){
         return $request->user();
     });
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Stores Orders
+    Route::apiResource('/orders', OrderController::class);
 });
 
 Route::apiResource('/categories', CategoryController::class);
