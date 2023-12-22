@@ -72,7 +72,11 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $order->estado = 1;
+        $order->save();
+        return [
+            'order' => $order
+        ];
     }
 
     /**
