@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,6 +29,29 @@ class OrderController extends Controller
         $order->user_id = Auth::user()->id;
         $order->total = $request->total;
         $order->save();
+
+        // Get ID Order
+        $id = $order->id;
+
+        // Get the products
+
+        $products = $request->products;
+
+        // Formart array
+
+        $order_product = [];
+
+        foreach($products as $product){
+            $order_product[] = [
+                'order_id' => $id,
+                'product_id' => $product['id'],
+                'quantity' => $product['quantity'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ];
+        }
+        // Store in the DB
+        OrderProduct::insert($order_product);
 
         return [
             'message' => 'realizando pedido'
